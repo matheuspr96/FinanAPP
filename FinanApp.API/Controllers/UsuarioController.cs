@@ -2,14 +2,11 @@
 using FinanApp.Dominio.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace FinanApp.WebAPI.Controllers
 {
     [ApiController]
-    [Route("Controller")]
     public class UsuarioController : Controller
     {
         private readonly IUsuarioRepository _usuarioRepository;
@@ -19,6 +16,7 @@ namespace FinanApp.WebAPI.Controllers
         }
 
         [HttpGet]
+        [Route("api/Usuario")]
         public IActionResult Get()
         {
             try
@@ -31,12 +29,31 @@ namespace FinanApp.WebAPI.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.ToString());
+            }
+        }
 
+
+        [HttpGet]
+        [Route("api/Usuario/{Id}")]
+        public IActionResult GetAll(int Id)
+        {
+            try
+            {
+                return Ok(_usuarioRepository.ObterPorId(Id));
+                //if (true)
+                //{
+                //    return BadRequest();
+                //}
+            }
+            catch (Exception ex)
+            {
                 return BadRequest(ex.ToString());
             }
         }
 
         [HttpPost]
+        [Route("api/Usuario")]
         public IActionResult Post([FromBody] Usuario model)
         {
             try
@@ -46,9 +63,17 @@ namespace FinanApp.WebAPI.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.ToString());
             }
         }
+
+        [HttpPut]
+        [Route("api/Usuario")]
+        public IActionResult Put([FromBody] Usuario model)
+        {
+            _usuarioRepository.Atualizar(model);
+            return Ok();
+        }
+
     }
 }

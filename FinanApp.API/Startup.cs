@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using FinanApp.Repositorio.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace FinanApp.WebAPI
 {
@@ -30,15 +23,15 @@ namespace FinanApp.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(options =>
-            {
-                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-                {
-                    Title = "FinanApp API",
-                    Version = "v1",
-                    Description = "FinanApp Services",
-                });
-            });
+            //services.AddSwaggerGen(options =>
+            //{
+            //    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+            //    {
+            //        Title = "FinanApp API",
+            //        Version = "v1",
+            //        Description = "FinanApp Services",
+            //    });
+            //});
             var connectionString = Configuration.GetConnectionString("FinanAppDB");
             services.AddDbContext<FinanAppContext>(option =>
                                                     option.UseLazyLoadingProxies()
@@ -66,8 +59,21 @@ namespace FinanApp.WebAPI
                 endpoints.MapControllers();
             });
 
-            app.UseSwagger();
-            app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "FinanApp Services"));
+            //app.UseSwagger();
+            //app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "FinanApp Services"));
+
+            app.UseSpa(spa =>
+            {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    //spa.UseAngularCliServer(npmScript: "start");
+                }
+            });
         }
     }
 }
