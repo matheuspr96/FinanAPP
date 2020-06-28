@@ -34,6 +34,6 @@ namespace FinanApp.Dominio.Entidades
         /// <summary>
         /// Usuario  do devedor
         /// </summary>
-        public Usuario Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
