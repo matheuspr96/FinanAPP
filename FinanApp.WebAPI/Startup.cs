@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using FinanApp.Repositorio.Context;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,7 +26,6 @@ namespace FinanApp.WebAPI
             Configuration = builder.Build();
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -45,9 +43,8 @@ namespace FinanApp.WebAPI
             services.AddDbContext<FinanAppContext>(option =>
                                                     option.UseLazyLoadingProxies()
                                                         .UseMySQL(connectionString,
-                                                                            m => m.MigrationsAssembly("FinanApp.Repositorio")
-                                                                  )
-                                                   ) ;
+                                                                            m => m.MigrationsAssembly("FinanApp.Repositorio")));
+            Repositorio.IoC.NativeInjectorBootStrapper.RegistroServicos(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
