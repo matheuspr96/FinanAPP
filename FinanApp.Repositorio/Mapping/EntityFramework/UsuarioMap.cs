@@ -27,11 +27,24 @@ namespace FinanApp.Repositorio.Mapping.EntityFramework
                 .IsRequired()
                 .HasMaxLength(50);
 
-
             builder
                 .Property(u => u.Senha)
                 .IsRequired()
                 .HasMaxLength(500);
+
+            builder
+                .HasMany(u => u.Receitas)
+                .WithOne(r => r.Usuario);
+
+            builder
+                .HasMany(u => u.Bancos)
+                .WithOne(b => b.Usuario);
+
+            builder
+                .HasMany(u => u.Devedores)
+                .WithOne(d => d.Usuario);
+
+
         }
     }
 }
