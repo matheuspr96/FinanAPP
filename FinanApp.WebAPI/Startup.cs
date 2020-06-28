@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using FinanApp.Repositorio.Context;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -22,7 +23,7 @@ namespace FinanApp.WebAPI
         public Startup(IConfiguration configuration)
         {
             var builder = new ConfigurationBuilder();
-            builder.AddJsonFile("appsetings.json", optional: false, reloadOnChange: true);
+            builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
             Configuration = builder.Build();
         }
 
@@ -44,7 +45,9 @@ namespace FinanApp.WebAPI
             services.AddDbContext<FinanAppContext>(option =>
                                                     option.UseLazyLoadingProxies()
                                                         .UseMySQL(connectionString,
-                                                                            m => m.MigrationsAssembly("FinanApp.Repositorio")));
+                                                                            m => m.MigrationsAssembly("FinanApp.Repositorio")
+                                                                  )
+                                                   ) ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

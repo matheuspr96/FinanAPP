@@ -31,6 +31,5 @@ namespace FinanApp.Repositorio.Context
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

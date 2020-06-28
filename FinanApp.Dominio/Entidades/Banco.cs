@@ -39,6 +39,6 @@ namespace FinanApp.Dominio.Entidades
         /// <summary>
         /// Lista de movimetos financeiros efetuados no banco
         /// </summary>
-        ICollection<Movimento> Movimentos { get; set; }
+        public virtual ICollection<Movimento> Movimentos { get; set; }
     }
 }
