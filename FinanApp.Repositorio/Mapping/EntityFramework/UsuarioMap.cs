@@ -7,24 +7,31 @@ using System.Text;
 
 namespace FinanApp.Repositorio.Mapping.EntityFramework
 {
-    public class ReceitaMap : IEntityTypeConfiguration<Receita>
+    public class UsuarioMap : IEntityTypeConfiguration<Usuario>
     {
-        public void Configure(EntityTypeBuilder<Receita> builder)
+        public void Configure(EntityTypeBuilder<Usuario> builder)
         {
             builder.HasKey(u => u.Id);
 
             builder
-                .Property(u => u.Descricao)
+                .Property(u => u.Nome)
                 .IsRequired()
                 .HasMaxLength(20);
 
             builder
-               .Property(u => u.Valor)
+               .Property(u => u.Salario)
                .IsRequired();
 
             builder
-             .Property(u => u.DataReceita)
-             .IsRequired();
+                .Property(u => u.Email)
+                .IsRequired()
+                .HasMaxLength(50);
+
+
+            builder
+                .Property(u => u.Senha)
+                .IsRequired()
+                .HasMaxLength(500);
         }
     }
 }

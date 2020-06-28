@@ -27,8 +27,18 @@ namespace FinanApp.Dominio.Entidades
         public DateTime VencimentoFatura { get; set; }
 
         /// <summary>
+        /// Identificador da chave estrangeira do usuário
+        /// </summary>
+        public int UsuarioId { get; set; }
+
+        /// <summary>
         /// Usuário ao qual pertence este banco
         /// </summary>
-        public Usuario Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
+
+        /// <summary>
+        /// Lista de movimetos financeiros efetuados no banco
+        /// </summary>
+        ICollection<Movimento> Movimentos { get; set; }
     }
 }

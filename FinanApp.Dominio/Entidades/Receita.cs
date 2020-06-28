@@ -22,8 +22,18 @@ namespace FinanApp.Dominio.Entidades
         public decimal Valor { get; set; }
 
         /// <summary>
+        /// Data que o usuário recebeu a receita
+        /// </summary>
+        public DateTime DataReceita { get; set; }
+
+        /// <summary>
+        /// Identificador da chave estrangeira do usuario
+        /// </summary>
+        public int UsuarioId { get; set; }
+
+        /// <summary>
         /// Usaurio ao qual pertence esta receita
         /// </summary>
-        public Usuario Usuario { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }
