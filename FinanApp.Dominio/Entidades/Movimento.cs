@@ -23,13 +23,28 @@ namespace FinanApp.Dominio.Entidades
         public decimal Valor { get; set; }
 
         /// <summary>
+        /// Data que foi feito o movimento
+        /// </summary>
+        public DateTime DataMovimento { get; set; }
+
+        /// <summary>
+        /// Identificador da chava estrangeira do devedor
+        /// </summary>
+        public int DevedorId { get; set; }
+
+        /// <summary>
         /// Pessoa que realizou o movimento financeiro
         /// </summary>
-        public Devedor Devedor { get; set; }
+        public virtual Devedor Devedor { get; set; }
+
+        /// <summary>
+        /// Identificador da chava estrangeira do banco que o devedor deve
+        /// </summary>
+        public int BancoId { get; set; }
 
         /// <summary>
         /// Banco utilizado para fazer o movimento financeiro
         /// </summary>
-        public Banco Banco { get; set; }
+        public virtual Banco Banco { get; set; }
     }
 }

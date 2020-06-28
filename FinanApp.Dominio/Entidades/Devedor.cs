@@ -17,13 +17,23 @@ namespace FinanApp.Dominio.Entidades
         public string Nome { get; set; }
 
         /// <summary>
-        /// Lista de movimentos financeiros do devedor
+        /// Email do devedor
         /// </summary>
-        public List<Movimento> Movimentos { get; set; }
+        public string Email { get; set; }
 
         /// <summary>
-        /// Lista de bancos que o Devedor utizou
+        /// Lista de movimentos financeiros do devedor
         /// </summary>
-        public List<Banco> Bancos { get; set; }
+        public virtual ICollection<Movimento> Movimentos { get; set; }
+
+        /// <summary>
+        /// Identificador da chave estrangeira do usuario
+        /// </summary>
+        public int UsuarioId { get; set; }
+
+        /// <summary>
+        /// Usuario  do devedor
+        /// </summary>
+        public Usuario Usuario { get; set; }
     }
 }
