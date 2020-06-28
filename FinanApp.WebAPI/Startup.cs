@@ -22,10 +22,9 @@ namespace FinanApp.WebAPI
         public Startup(IConfiguration configuration)
         {
             var builder = new ConfigurationBuilder();
-            builder.AddJsonFile("appsetings.json", optional: false, reloadOnChange: true);
+            builder.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
             Configuration = builder.Build();
         }
-
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -45,6 +44,7 @@ namespace FinanApp.WebAPI
                                                     option.UseLazyLoadingProxies()
                                                         .UseMySQL(connectionString,
                                                                             m => m.MigrationsAssembly("FinanApp.Repositorio")));
+            Repositorio.IoC.NativeInjectorBootStrapper.RegistroServicos(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
