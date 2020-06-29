@@ -20,6 +20,10 @@ namespace FinanApp.Repositorio.Mapping.EntityFramework
             builder.Property(d => d.Email)
                 .IsRequired()
                 .HasMaxLength(50);
+
+            builder
+                .HasMany(d => d.Movimentos)
+                .WithOne(m => m.Devedor);
         }
     }
 }

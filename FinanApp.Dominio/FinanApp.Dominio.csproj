@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entidades\Enum\" />
-    <Folder Include="Entidades\ValueObjects\" />
+    <Folder Include="Entities\Enum\" />
+    <Folder Include="Entities\ValueObjects\" />
   </ItemGroup>
 
 </Project>

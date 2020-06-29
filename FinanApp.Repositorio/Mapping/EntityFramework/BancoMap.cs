@@ -22,6 +22,10 @@ namespace FinanApp.Repositorio.Mapping.EntityFramework
 
             builder.Property(b => b.VencimentoFatura)
                 .IsRequired();
+
+            builder
+                .HasMany(b => b.Movimentos)
+                .WithOne(m => m.Banco);
         }
     }
 }
