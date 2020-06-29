@@ -1,0 +1,59 @@
+
+<div class="container">
+<div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+    <div class="card card-signin my-5">
+        <div class="card-body">
+        <h5 class="card-title text-center">Sign In</h5>
+        <form class="form-signin">
+            <div class="form-label-group">
+                <label for="inputEmail">Email address</label>
+                <input [(ngModel)]="usuario.email" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus email
+                #email="ngModel"
+                [ngClass]="{
+                    'is-invalid':email.invalid && (email.dirty || email.touched),
+                    'is-valid': email.valid && (email.dirty || email.touched)
+                }"    
+                />
+            </div>
+            <div class="invalid-feedback mb-2" *ngIf="email.invalid && (email.dirty || email.touched)">
+                <div *ngIf="email.errors.required">
+                    E-mail é obrigatório!
+                </div>
+                <div *ngIf="email.errors.email">
+                    E-mail inválido!
+                </div>
+            </div>
+
+            <div class="form-label-group">
+                <label for="inputPassword">Password</label>
+                <input [(ngModel)]="usuario.senha" name="senha" type="password" id="inputPassword" class="form-control" placeholder="Password" required
+                #senha="ngModel"
+                [ngClass]="{
+                    'is-invalid':senha.invalid && (senha.dirty || senha.touched),
+                    'is-valid': senha.valid && (senha.dirty || senha.touched)
+                }"
+                />
+            </div>
+            <div class="invalid-feedback mb-2" *ngIf="senha.invalid && (senha.dirty || senha.touched)">
+                <div *ngIf="senha.errors.required">
+                    Senha é obrigatória!
+                </div>
+            </div>
+
+            <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" class="custom-control-input" id="customCheck1">
+            <label class="custom-control-label" for="customCheck1">Remember password</label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" (click)="login()">Sign in</button>
+            <hr class="my-4">
+
+            <div *ngIf="usuarioAutenticado" class="invalid-feedback mb-2" role="alert" >
+                Usuário inválido!
+            </div>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
