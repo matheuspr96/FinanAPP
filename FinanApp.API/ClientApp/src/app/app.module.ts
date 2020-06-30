@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { LoginComponent } from './login/login.component';
+import { GuardaRotas } from './autorizacao/guarda.rotas';
 
 
 @NgModule({
@@ -28,7 +29,7 @@ import { LoginComponent } from './login/login.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'usuario', component: UsuarioComponent},
+      { path: 'usuario', component: UsuarioComponent, canActivate:[GuardaRotas]},
       { path: 'login', component: LoginComponent}
     ])
   ],
