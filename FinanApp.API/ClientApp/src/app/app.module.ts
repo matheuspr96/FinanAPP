@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { UsuarioComponent } from './usuario/usuario.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './usuario/login/login.component';
 import { GuardaRotas } from './autorizacao/guarda.rotas';
 import { UsuarioServico } from './servicos/usuario/usuario.servico';
+import { CadastroComponent } from './usuario/cadastro/cadastro.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { UsuarioServico } from './servicos/usuario/usuario.servico';
     NavMenuComponent,
     HomeComponent,
     UsuarioComponent,
-    LoginComponent
+    LoginComponent,
+    CadastroComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +30,8 @@ import { UsuarioServico } from './servicos/usuario/usuario.servico';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'usuario', component: UsuarioComponent, canActivate:[GuardaRotas]},
-      { path: 'login', component: LoginComponent}
+      { path: 'login', component: LoginComponent},
+      { path: 'cadastro', component: CadastroComponent}
     ])
   ],
   providers: [UsuarioServico],
