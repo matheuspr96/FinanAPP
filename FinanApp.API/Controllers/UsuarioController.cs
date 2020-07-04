@@ -7,6 +7,7 @@ using System.Net;
 namespace FinanApp.WebAPI.Controllers
 {
     [ApiController]
+    [Route("api/[Controller]")]
     public class UsuarioController : Controller
     {
         private readonly IUsuarioRepository _usuarioRepository;
@@ -16,7 +17,6 @@ namespace FinanApp.WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("api/Usuario")]
         public IActionResult Get()
         {
             try
@@ -34,8 +34,7 @@ namespace FinanApp.WebAPI.Controllers
         }
 
 
-        [HttpGet]
-        [Route("api/Usuario/{Id}")]
+        [HttpGet("Id")]
         public IActionResult GetAll(int Id)
         {
             try
@@ -53,7 +52,6 @@ namespace FinanApp.WebAPI.Controllers
         }
 
         [HttpPost]
-        [Route("api/Usuario")]
         public IActionResult Post([FromBody] Usuario model)
         {
             try
@@ -68,12 +66,32 @@ namespace FinanApp.WebAPI.Controllers
         }
 
         [HttpPut]
-        [Route("api/Usuario")]
         public IActionResult Put([FromBody] Usuario model)
         {
             _usuarioRepository.Atualizar(model);
             return Ok();
         }
 
+        [HttpPost("VerificarUsuario")]
+        public IActionResult VerificarUsuario([FromBody] Usuario model)
+        {
+            try
+            {
+
+                var usuario = _usuarioRepository.Obter(model.Email, model.Senha);
+                if(usuario != null && model.Email == usuario.Email && model.Senha == usuario.Senha)
+                {
+                    return Ok(usuario);
+                }
+                else
+                {
+                    return BadRequest("Usuário ou senha inválidos!");
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
+        }
     }
 }
