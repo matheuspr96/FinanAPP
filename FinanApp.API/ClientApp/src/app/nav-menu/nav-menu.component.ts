@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsuarioServico } from '../servicos/usuario/usuario.servico';
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,6 +10,9 @@ import { Component } from '@angular/core';
 export class NavMenuComponent {
   isExpanded = false;
 
+  constructor(private router: Router, private usuarioServico: UsuarioServico) {
+    
+  }
   collapse() {
     this.isExpanded = false;
   }
@@ -15,4 +20,15 @@ export class NavMenuComponent {
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
+
+  public usuarioLogado():boolean{
+    return this.usuarioServico.usuario_autenticado();
+  }
+
+  sair(){
+    this.usuarioServico.limpar_sessao();
+    this.router.navigate(['']);
+  }
 }
+
+
