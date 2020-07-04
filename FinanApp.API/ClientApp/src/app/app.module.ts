@@ -7,10 +7,10 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { LoginComponent } from './login/login.component';
 import { GuardaRotas } from './autorizacao/guarda.rotas';
+import { UsuarioServico } from './servicos/usuario/usuario.servico';
 
 
 @NgModule({
@@ -18,7 +18,6 @@ import { GuardaRotas } from './autorizacao/guarda.rotas';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
     UsuarioComponent,
     LoginComponent
   ],
@@ -28,12 +27,11 @@ import { GuardaRotas } from './autorizacao/guarda.rotas';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
       { path: 'usuario', component: UsuarioComponent, canActivate:[GuardaRotas]},
       { path: 'login', component: LoginComponent}
     ])
   ],
-  providers: [],
+  providers: [UsuarioServico],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
