@@ -6,17 +6,19 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
+#nullable disable
+
 namespace FinanApp.Repositorio.Migrations
 {
     [DbContext(typeof(FinanAppContext))]
-    [Migration("20200628053331_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220820025725_initial_db")]
+    partial class initial_db
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("FinanApp.Dominio.Entidades.Banco", b =>
@@ -27,17 +29,17 @@ namespace FinanApp.Repositorio.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("ValorFatura")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<DateTime>("VencimentoFatura")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -54,13 +56,13 @@ namespace FinanApp.Repositorio.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
@@ -82,18 +84,18 @@ namespace FinanApp.Repositorio.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataMovimento")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("DevedorId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
@@ -111,18 +113,18 @@ namespace FinanApp.Repositorio.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataReceita")
-                        .HasColumnType("datetime");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
@@ -139,21 +141,21 @@ namespace FinanApp.Repositorio.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("varchar(20)")
-                        .HasMaxLength(20);
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
 
                     b.Property<decimal>("Salario")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasColumnType("varchar(500)")
-                        .HasMaxLength(500);
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
 
                     b.HasKey("Id");
 
@@ -167,6 +169,8 @@ namespace FinanApp.Repositorio.Migrations
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("FinanApp.Dominio.Entidades.Devedor", b =>
@@ -176,6 +180,8 @@ namespace FinanApp.Repositorio.Migrations
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("FinanApp.Dominio.Entidades.Movimento", b =>
@@ -191,6 +197,10 @@ namespace FinanApp.Repositorio.Migrations
                         .HasForeignKey("DevedorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Banco");
+
+                    b.Navigation("Devedor");
                 });
 
             modelBuilder.Entity("FinanApp.Dominio.Entidades.Receita", b =>
@@ -200,6 +210,27 @@ namespace FinanApp.Repositorio.Migrations
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("FinanApp.Dominio.Entidades.Banco", b =>
+                {
+                    b.Navigation("Movimentos");
+                });
+
+            modelBuilder.Entity("FinanApp.Dominio.Entidades.Devedor", b =>
+                {
+                    b.Navigation("Movimentos");
+                });
+
+            modelBuilder.Entity("FinanApp.Dominio.Entidades.Usuario", b =>
+                {
+                    b.Navigation("Bancos");
+
+                    b.Navigation("Devedores");
+
+                    b.Navigation("Receitas");
                 });
 #pragma warning restore 612, 618
         }

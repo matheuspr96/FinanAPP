@@ -4,9 +4,4 @@
     <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\Enum\" />
-    <Folder Include="Entities\ValueObjects\" />
-  </ItemGroup>
-
 </Project>
