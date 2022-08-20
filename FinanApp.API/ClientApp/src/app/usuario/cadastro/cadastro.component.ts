@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioServico } from 'src/app/servicos/usuario/usuario.servico';
-import { Usuario } from 'src/app/model/usuario';
+import { Usuario } from '../../model/usuario';
+import { UsuarioServico } from '../../servicos/usuario/usuario.servico';
 
 @Component({
     selector: 'cadastro-usuario',
