@@ -23,20 +23,20 @@ namespace FinanApp.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            //services.AddSwaggerGen(options =>
-            //{
-            //    options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-            //    {
-            //        Title = "FinanApp API",
-            //        Version = "v1",
-            //        Description = "FinanApp Services",
-            //    });
-            //});
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "FinanApp API",
+                    Version = "v1",
+                    Description = "FinanApp Services",
+                });
+            });
             var connectionString = Configuration.GetConnectionString("FinanAppDB");
             services.AddDbContext<FinanAppContext>(option =>
                                                     option.UseLazyLoadingProxies()
-                                                        .UseMySQL(connectionString,
-                                                                            m => m.MigrationsAssembly("FinanApp.Repositorio")));
+                                                        .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), b => b.MigrationsAssembly("FinanApp.Repositorio")));
+
             Repositorio.IoC.NativeInjectorBootStrapper.RegistroServicos(services);
         }
 
