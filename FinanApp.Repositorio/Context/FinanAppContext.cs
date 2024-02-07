@@ -15,8 +15,7 @@ namespace FinanApp.Repositorio.Context
         }
 
         public DbSet<Banco> Bancos { get; set; }
-        public DbSet<Devedor> Devedores { get; set; }
-        public DbSet<Movimento> Movimentos { get; set; }
+        public DbSet<MovimentacaoFinanceira> Movimentos { get; set; }
         public DbSet<Receita> Receitas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
 
@@ -24,7 +23,6 @@ namespace FinanApp.Repositorio.Context
         {
             //Classes de Mapeamento Entity
             modelBuilder.ApplyConfiguration(new BancoMap());
-            modelBuilder.ApplyConfiguration(new DevedorMap());
             modelBuilder.ApplyConfiguration(new MovimentoMap());
             modelBuilder.ApplyConfiguration(new ReceitaMap());
             modelBuilder.ApplyConfiguration(new UsuarioMap());

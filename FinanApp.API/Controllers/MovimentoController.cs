@@ -55,7 +55,7 @@ namespace FinanApp.WebAPI.Controllers
 
         [HttpPost]
         [Route("api/Movimento")]
-        public IActionResult Post([FromBody] Movimento model)
+        public IActionResult Post([FromBody] MovimentacaoFinanceira model)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace FinanApp.WebAPI.Controllers
 
         [HttpPut]
         [Route("api/Movimento")]
-        public IActionResult Put([FromBody] Movimento model)
+        public IActionResult Put([FromBody] MovimentacaoFinanceira model)
         {
             _movimentoRepository.Atualizar(model);
             return Ok();

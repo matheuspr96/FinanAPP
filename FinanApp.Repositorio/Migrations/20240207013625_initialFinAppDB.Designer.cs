@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinanApp.Repositorio.Migrations
 {
     [DbContext(typeof(FinanAppContext))]
-    [Migration("20220820025725_initial_db")]
-    partial class initial_db
+    [Migration("20240207013625_initialFinAppDB")]
+    partial class initialFinAppDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,19 +27,19 @@ namespace FinanApp.Repositorio.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("ValorFatura")
-                        .HasColumnType("decimal(65,30)");
-
-                    b.Property<DateTime>("VencimentoFatura")
-                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -48,40 +48,20 @@ namespace FinanApp.Repositorio.Migrations
                     b.ToTable("Bancos");
                 });
 
-            modelBuilder.Entity("FinanApp.Dominio.Entidades.Devedor", b =>
+            modelBuilder.Entity("FinanApp.Dominio.Entidades.MovimentacaoFinanceira", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime(6)");
 
-                    b.Property<int>("UsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UsuarioId");
-
-                    b.ToTable("Devedores");
-                });
-
-            modelBuilder.Entity("FinanApp.Dominio.Entidades.Movimento", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("BancoId")
-                        .HasColumnType("int");
+                    b.Property<string>("Data")
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DataMovimento")
                         .HasColumnType("datetime(6)");
@@ -91,7 +71,13 @@ namespace FinanApp.Repositorio.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int>("DevedorId")
+                    b.Property<bool>("Efetivada")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Tipo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Valor")
@@ -99,9 +85,7 @@ namespace FinanApp.Repositorio.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BancoId");
-
-                    b.HasIndex("DevedorId");
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Movimentos");
                 });
@@ -112,6 +96,12 @@ namespace FinanApp.Repositorio.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("DataReceita")
                         .HasColumnType("datetime(6)");
 
@@ -119,6 +109,9 @@ namespace FinanApp.Repositorio.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
+
+                    b.Property<float?>("LimiteMensal")
+                        .HasColumnType("float");
 
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
@@ -149,9 +142,6 @@ namespace FinanApp.Repositorio.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("varchar(20)");
 
-                    b.Property<decimal>("Salario")
-                        .HasColumnType("decimal(65,30)");
-
                     b.Property<string>("Senha")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -160,6 +150,40 @@ namespace FinanApp.Repositorio.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("FinanApp.Dominio.Entities.CartaoCredito", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("AtualizadoEm")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("BancoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CriadoEm")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<float?>("LimiteGasto")
+                        .HasColumnType("float");
+
+                    b.Property<int>("MelhorDiaCompra")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("VencimentoFatura")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BancoId");
+
+                    b.ToTable("CartaoCredito");
                 });
 
             modelBuilder.Entity("FinanApp.Dominio.Entidades.Banco", b =>
@@ -173,34 +197,15 @@ namespace FinanApp.Repositorio.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("FinanApp.Dominio.Entidades.Devedor", b =>
+            modelBuilder.Entity("FinanApp.Dominio.Entidades.MovimentacaoFinanceira", b =>
                 {
                     b.HasOne("FinanApp.Dominio.Entidades.Usuario", "Usuario")
-                        .WithMany("Devedores")
+                        .WithMany("MovimentacaoFinanceira")
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Usuario");
-                });
-
-            modelBuilder.Entity("FinanApp.Dominio.Entidades.Movimento", b =>
-                {
-                    b.HasOne("FinanApp.Dominio.Entidades.Banco", "Banco")
-                        .WithMany("Movimentos")
-                        .HasForeignKey("BancoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FinanApp.Dominio.Entidades.Devedor", "Devedor")
-                        .WithMany("Movimentos")
-                        .HasForeignKey("DevedorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Banco");
-
-                    b.Navigation("Devedor");
                 });
 
             modelBuilder.Entity("FinanApp.Dominio.Entidades.Receita", b =>
@@ -214,21 +219,27 @@ namespace FinanApp.Repositorio.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("FinanApp.Dominio.Entidades.Banco", b =>
+            modelBuilder.Entity("FinanApp.Dominio.Entities.CartaoCredito", b =>
                 {
-                    b.Navigation("Movimentos");
+                    b.HasOne("FinanApp.Dominio.Entidades.Banco", "Banco")
+                        .WithMany("CartaoCreditoCollection")
+                        .HasForeignKey("BancoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Banco");
                 });
 
-            modelBuilder.Entity("FinanApp.Dominio.Entidades.Devedor", b =>
+            modelBuilder.Entity("FinanApp.Dominio.Entidades.Banco", b =>
                 {
-                    b.Navigation("Movimentos");
+                    b.Navigation("CartaoCreditoCollection");
                 });
 
             modelBuilder.Entity("FinanApp.Dominio.Entidades.Usuario", b =>
                 {
                     b.Navigation("Bancos");
 
-                    b.Navigation("Devedores");
+                    b.Navigation("MovimentacaoFinanceira");
 
                     b.Navigation("Receitas");
                 });

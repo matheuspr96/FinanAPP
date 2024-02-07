@@ -19,10 +19,6 @@ namespace FinanApp.Repositorio.Mapping.EntityFramework
                 .HasMaxLength(20);
 
             builder
-               .Property(u => u.Salario)
-               .IsRequired();
-
-            builder
                 .Property(u => u.Email)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -39,11 +35,6 @@ namespace FinanApp.Repositorio.Mapping.EntityFramework
             builder
                 .HasMany(u => u.Bancos)
                 .WithOne(b => b.Usuario);
-
-            builder
-                .HasMany(u => u.Devedores)
-                .WithOne(d => d.Usuario);
-
 
         }
     }

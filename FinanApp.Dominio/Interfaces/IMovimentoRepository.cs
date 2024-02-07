@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FinanApp.Dominio.Interfaces
 {
-    public interface IMovimentoRepository : IBaseRepository<Movimento>
+    public interface IMovimentoRepository : IBaseRepository<MovimentacaoFinanceira>
     {
     }
 }

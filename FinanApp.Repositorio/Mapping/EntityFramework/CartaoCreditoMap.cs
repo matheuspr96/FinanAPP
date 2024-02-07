@@ -1,4 +1,5 @@
 ﻿using FinanApp.Dominio.Entidades;
+using FinanApp.Dominio.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,9 +8,10 @@ using System.Text;
 
 namespace FinanApp.Repositorio.Mapping.EntityFramework
 {
-    public class BancoMap : IEntityTypeConfiguration<Banco>
+    public class CartaoCreditoMap : IEntityTypeConfiguration<CartaoCredito>
     {
-        public void Configure(EntityTypeBuilder<Banco> builder)
+
+        public void Configure(EntityTypeBuilder<CartaoCredito> builder)
         {
             builder.HasKey(b => b.Id);
 
@@ -23,9 +25,6 @@ namespace FinanApp.Repositorio.Mapping.EntityFramework
             builder.Property(b => b.AtualizadoEm)
                 .IsRequired();
 
-            builder
-                .HasMany(b => b.CartaoCreditoCollection)
-                .WithOne(m => m.Banco);
         }
     }
 }

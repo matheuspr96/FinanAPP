@@ -10,7 +10,6 @@ namespace FinanApp.Repositorio.IoC
         {
             ///Repositories
             services.AddScoped<IBancoRepository, BancoRepository>();
-            services.AddScoped<IDevedorRepository, DevedorRepository>();
             services.AddScoped<IMovimentoRepository, MovimentoRepository>();
             services.AddScoped<IReceitaRepository, ReceitaRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();

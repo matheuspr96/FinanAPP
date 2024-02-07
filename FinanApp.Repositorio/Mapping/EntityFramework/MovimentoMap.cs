@@ -8,9 +8,9 @@ using System.Text;
 
 namespace FinanApp.Repositorio.Mapping.EntityFramework
 {
-    public class MovimentoMap : IEntityTypeConfiguration<Movimento>
+    public class MovimentoMap : IEntityTypeConfiguration<MovimentacaoFinanceira>
     {
-        public void Configure(EntityTypeBuilder<Movimento> builder)
+        public void Configure(EntityTypeBuilder<MovimentacaoFinanceira> builder)
         {
             builder.HasKey(m => m.Id);
 

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace FinanApp.Repositorio.Repository
 {
-    public class MovimentoRepository : BaseRepository<Movimento>, IMovimentoRepository
+    public class MovimentoRepository : BaseRepository<MovimentacaoFinanceira>, IMovimentoRepository
     {
         public MovimentoRepository(FinanAppContext context) : base(context)
         {
