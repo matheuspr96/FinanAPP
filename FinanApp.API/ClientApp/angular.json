@@ -136,5 +136,7 @@
       }
     }
   },
-  "defaultProject": "FinanApp.API"
+  "cli": {
+    "analytics": false
+  }
 }
